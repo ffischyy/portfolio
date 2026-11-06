@@ -613,6 +613,11 @@ function pickPcSpot() {
   const halfH = camera.position.distanceTo(camLook) * TAN, halfW = halfH * camera.aspect;
   const room = (a) => Math.max(0, a) * (Math.random() * 2 - 1);
   pcTarget.set(room(halfW - 3), room(halfH - 2.6), 0);
+  if (innerWidth <= 760 && innerHeight > innerWidth) {
+    // Phones: sway in the gap between the profile card and the folder
+    const top = document.getElementById('hud').offsetHeight + 8, bottom = innerHeight - document.getElementById('folder').offsetHeight - 8;
+    pcTarget.set(room(.5), (innerHeight - top - bottom) * halfH / innerHeight + room(.3), 0);
+  }
 }
 
 function floatPc(dt) {

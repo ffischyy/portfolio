@@ -121,13 +121,6 @@ body.no3d { touch-action: auto; display: flex; flex-direction: column; gap: 24px
 figure { margin: 0; }
 figure img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; }
 figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--muted); }
-.shot-empty {
-  display: grid; place-items: center;
-  aspect-ratio: 16 / 9;
-  font: 400 13px var(--mono); color: var(--muted);
-  border: 1px dashed var(--line);
-  border-radius: 8px;
-}
 
 .project-text { margin-top: 16px; }
 .chips { display: flex; flex-wrap: wrap; gap: 4px; margin: 12px 0 0; padding: 0; list-style: none; }
@@ -144,7 +137,9 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   font-size: 14px; color: var(--bg); background: var(--text);
   border-radius: 8px;
   text-decoration: none;
+  transition: background-color .15s var(--ease);
 }
+.btn:hover { background: var(--text-2); }
 
 /* Skill groups are expansion cards, gold contacts along the bottom edge */
 .module {
@@ -178,15 +173,15 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
 /* Profile Card, ported from React Bits (reactbits.dev).
    Copyright (c) 2026 David Haz. MIT + Commons Clause License Condition v1.0. */
 .profile-card {
-  --pc-frame: rgba(38, 35, 46, 0.66);
+  --pc-frame: var(--surface);
   --pc-frame-edge: rgba(255, 255, 255, 0.08);
   --pc-frame-highlight: rgba(255, 255, 255, 0.07);
   --pc-frame-shadow: 0 22px 44px -20px rgba(0, 0, 0, 0.8), 0 6px 16px -8px rgba(0, 0, 0, 0.5);
-  --pc-tile: linear-gradient(180deg, #3a3644 0%, #27242f 100%);
+  --pc-tile: var(--raised);
   --pc-tile-edge: rgba(255, 255, 255, 0.07);
   --pc-tile-highlight: rgba(255, 255, 255, 0.12);
   --pc-tile-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.7);
-  --pc-ink: #f4f4f5;
+  --pc-ink: var(--text);
   --pc-muted: rgba(244, 244, 245, 0.6);
   --pc-hover: brightness(1.12);
   --pc-press: brightness(0.8);
@@ -229,13 +224,11 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  border-radius: calc(var(--pc-radius) + 10px);
+  gap: 8px;
+  padding: 8px;
+  border-radius: calc(var(--pc-radius) + 8px);
   background: var(--pc-frame);
   box-shadow: var(--pc-frame-shadow);
-  -webkit-backdrop-filter: blur(20px) saturate(1.6);
-  backdrop-filter: blur(20px) saturate(1.6);
   transform: rotateX(var(--pc-rotate-x)) rotateY(var(--pc-rotate-y));
   will-change: transform;
 }
@@ -401,18 +394,17 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
 
 .profile-card__info {
   position: absolute;
-  left: 20px;
-  right: 20px;
-  bottom: 18px;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
   color: #ffffff;
 }
 
 .profile-card__name {
   margin: 0;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.25;
-  letter-spacing: -0.01em;
   color: inherit;
 }
 
@@ -434,20 +426,19 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   align-items: center;
   gap: 8px;
   min-width: 0;
-  padding: 2px;
 }
 
 .profile-card__contact {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex: 1;
   justify-content: center;
   height: 36px;
   padding: 0 8px;
   border: none;
   text-decoration: none;
-  border-radius: calc(var(--pc-radius) * 0.75);
+  border-radius: 8px;
   background: var(--pc-tile);
   box-shadow:
     inset 0 0 0 1px var(--pc-tile-edge),
@@ -456,16 +447,16 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   color: var(--pc-ink);
   font-family: inherit;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   transition:
-    filter 0.2s ease,
-    transform 0.2s ease;
+    filter .15s var(--ease),
+    transform .15s var(--ease);
 }
 
 .profile-card__contact:active {
   filter: var(--pc-press);
-  transform: scale(0.96);
+  transform: scale(0.98);
   transition-duration: 0s;
 }
 
@@ -538,15 +529,13 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
 
 .folder-float {
   --ff-w: 148px;
-  --ff-h: 110px;
-  --ff-r: 14px;
-  --ff-tab: 14px;
-  --ff-back: #3f3f46;
-  --ff-front: #52525b;
-  --ff-paper: #f5f5f5;
-  --ff-item: #f5f5f5;
-  --ff-item-ink: #18181b;
-  --ff-label: #f5f5f5;
+  --ff-h: 108px;
+  --ff-r: 12px;
+  --ff-tab: 12px;
+  --ff-back: #262b38;
+  --ff-front: #333947;
+  --ff-paper: var(--text);
+  --ff-label: var(--text);
   --ff-spread: 180px;
   --ff-lift: 26px;
   --ff-angle: 34deg;
@@ -555,8 +544,7 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   --ff-close: 312ms;
   --ff-stagger: 45ms;
   --ff-n: 6;
-  --ff-spring: cubic-bezier(0.34, 1.57, 0.64, 1);
-  --ff-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ff-ease-out: var(--ease);
 
   position: relative;
   display: inline-block;
@@ -608,7 +596,7 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   transform: translateY(10px);
   transition:
     transform var(--ff-close) var(--ff-ease-out),
-    opacity var(--ff-close) ease;
+    opacity var(--ff-close) var(--ff-ease-out);
 }
 
 .folder-float__front {
@@ -620,12 +608,12 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 5px;
+  gap: 4px;
   height: 76%;
-  padding: 14px 16px;
+  padding: 12px 16px;
   box-sizing: border-box;
   border-radius: var(--ff-r);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--ff-front) 92%, #fff), var(--ff-front) 60%);
+  background: var(--ff-front);
   color: var(--ff-label);
   box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.28);
   transform: perspective(600px) rotateX(calc(-1 * var(--ff-rest)));
@@ -639,8 +627,8 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
 }
 
 .folder-float__sub {
-  font-size: 11px;
-  opacity: 0.55;
+  font-size: 12px;
+  color: var(--text-2);
 }
 
 .folder-float__trigger {
@@ -669,7 +657,7 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   transform: translateY(0);
   transition:
     transform var(--ff-open) var(--ff-ease-out),
-    opacity 200ms ease;
+    opacity 200ms var(--ff-ease-out);
 }
 
 .circular-carousel {
@@ -711,7 +699,7 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transition: opacity .45s var(--ease);
 }
 
 .circular-carousel[data-ready] .circular-carousel__stage {
@@ -781,13 +769,13 @@ figcaption { margin-top: 4px; font: 400 12px/16px var(--mono); color: var(--mute
 
 @media (max-width: 760px), (max-height: 500px) {
   :root { --gutter: 16px; }
-  #folder.folder-float { --ff-w: 116px; --ff-h: 86px; }
+  #folder.folder-float { --ff-w: 116px; --ff-h: 88px; }
   #hud.profile-card { width: 148px; }
-  #hud .profile-card__body { gap: 6px; padding: 6px; }
+  #hud .profile-card__body { gap: 4px; padding: 4px; border-radius: calc(var(--pc-radius) + 4px); }
   #hud .profile-card__info { left: 10px; right: 10px; bottom: 8px; }
   #hud .profile-card__name { font-size: 14px; }
-  #hud .profile-card__title { font-size: 10px; margin-top: 2px; }
-  #hud .profile-card__footer { flex-direction: column; gap: 4px; padding: 0; }
+  #hud .profile-card__title { font-size: 11px; margin-top: 2px; }
+  #hud .profile-card__footer { flex-direction: column; gap: 4px; }
   #hud .profile-card__contact { width: 100%; height: 28px; font-size: 12px; }
   #panel { padding: 12px 16px 32px; }
   .panel-open #back { display: none; }

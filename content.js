@@ -112,7 +112,7 @@ window.CONTENT = {
 
 
   /* ---------- PROJECTS: each one opens from its own card ----------
-     image: a file in the assets folder, e.g. "assets/lodestar.png" ("" shows an empty slot)
+     image: a file in the assets folder, e.g. "assets/lodestar.png" ("" leaves the picture out)
      link:  the GitHub link for this project ("" hides the button)            */
   projects: [
     {

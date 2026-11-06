@@ -460,7 +460,7 @@ function build() {
   built = true;
   C.cards.forEach((info, index) => {
     const art = paintCard(info);
-    const foil = holoFoil(art, Math.round(CARD_W * 1.5), Math.round(CARD_H * 1.5), CARD_W);
+    const foil = holoFoil(art, Math.round(CARD_W * 1.5), Math.round(CARD_H * 1.5), CARD_W, { intensity: .2, edge: .3 });
     const card = { info, art, foil, parts: [], el: document.createElement('div'), clock: index * 3 };
     card.el.className = 'circular-carousel__card';
     card.el.dataset.ccIndex = index;
@@ -596,7 +596,7 @@ async function openDeck() {
   if (!built) build();
   if (!tunnelStarted) {
     tunnelStarted = true;
-    lightTunnel($('tunnel'), $('tunnel').querySelector('canvas'), { dpr: 1 });
+    lightTunnel($('tunnel'), $('tunnel').querySelector('canvas'), { dpr: 1, brightness: .3 });
   }
   measure();
   state.intro = reduced ? null : performance.now();
@@ -681,9 +681,12 @@ const profile = floater($('hud'), 55, .02);
 let lastFloat = 0;
 
 function pickSpot(f) {
+  // Phones have no spare room: the profile card stays above the PC, the folder below it
+  const tall = innerWidth <= 760 && innerHeight > innerWidth, h = f.el.offsetHeight;
   for (let tries = 0; tries < 12; tries++) {
     f.tx = 8 + Math.random() * Math.max(1, innerWidth - f.el.offsetWidth - 16);
-    f.ty = 8 + Math.random() * Math.max(1, innerHeight - f.el.offsetHeight - 16);
+    f.ty = 8 + Math.random() * Math.max(1, innerHeight - h - 16);
+    if (tall) f.ty = f === profile ? 8 + Math.random() * 16 : innerHeight - h - 8 - Math.random() * 16;
     if (f !== folder || !overlapsProfile(f.tx, f.ty, 32)) break;
   }
 }
@@ -762,8 +765,8 @@ function draggable(f) {
 
 folder.el.addEventListener('pointerenter', () => { folder.el.dataset.open = ''; });
 folder.el.addEventListener('pointerleave', () => { delete folder.el.dataset.open; });
-$('folder-sub').textContent = `${count} cards`;
-$('folder-open').setAttribute('aria-label', `Projects, ${count} cards`);
+$('folder-sub').textContent = 'and skills';
+$('folder-open').setAttribute('aria-label', 'Open projects and skills');
 $('folder-open').onclick = (e) => {
   if (folder.moved) return;
   site.spark(e.clientX, e.clientY);

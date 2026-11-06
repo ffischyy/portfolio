@@ -37,11 +37,11 @@ window.site = site;
 /* ---------- Panels ---------- */
 function projectPanel(body, p) {
   const shot = p.image
-    ? el('figure', {}, el('img', { src: p.image, alt: p.alt, loading: 'lazy' }),
-      ...(p.caption ? [el('figcaption', { textContent: p.caption })] : []))
-    : el('div', { className: 'shot-empty', textContent: 'Screenshot slot: add one in content.js' });
+    ? [el('figure', {}, el('img', { src: p.image, alt: p.alt, loading: 'lazy' }),
+      ...(p.caption ? [el('figcaption', { textContent: p.caption })] : []))]
+    : [];
   body.append(
-    shot,
+    ...shot,
     el('div', { className: 'project-text' }, ...paragraphs(p.body)),
     el('ul', { className: 'chips' }, ...p.tech.map((t) => el('li', { textContent: t }))),
     ...(p.link ? [el('a', { className: 'btn', href: p.link, target: '_blank', rel: 'noopener', textContent: 'View on GitHub' })] : [])
